@@ -14,4 +14,5 @@ public interface UserPersistence {
     User updateUser(User user);
     
     void removeUser(String userId);
+    
 }
