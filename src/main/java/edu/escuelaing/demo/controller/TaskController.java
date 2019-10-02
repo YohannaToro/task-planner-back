@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value="/boards")
+@CrossOrigin
 public class TaskController {
     @Autowired
     TaskPlannerService taskServices;

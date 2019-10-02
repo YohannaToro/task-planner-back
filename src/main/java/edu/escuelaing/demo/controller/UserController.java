@@ -12,6 +12,7 @@ import edu.escuelaing.demo.service.UserServices;
 
 @RestController
 @RequestMapping(value="/users")
+@CrossOrigin
 public class UserController{
     @Autowired
     UserServices userServices;
