@@ -2,17 +2,19 @@ package edu.escuelaing.demo.repository;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import edu.escuelaing.demo.model.User;
 
 public interface UserPersistence {
-    List<User> getUsersList();
+    public List<User> getUsersList();
     
-    User getUserById(String userId);
+    public User getUserById(String userId);
     
-    User createUser(User user);
+    public void createUser(User user);
     
-    User updateUser(User user);
+    public void updateUser(User user);
     
-    void removeUser(String userId);
+    public void removeUser(String userId);
     
 }

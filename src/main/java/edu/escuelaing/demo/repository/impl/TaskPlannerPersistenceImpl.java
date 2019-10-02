@@ -140,7 +140,7 @@ public class TaskPlannerPersistenceImpl implements TaskPlannerPersistence {
 
     @Override
     public Board getBoard(String id) {
-        return null;
+        return boards.get(id);
     }
 
     @Override
