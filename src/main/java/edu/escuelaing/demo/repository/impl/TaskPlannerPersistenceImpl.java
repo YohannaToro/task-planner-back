@@ -90,7 +90,7 @@ public class TaskPlannerPersistenceImpl implements TaskPlannerPersistence {
                 t.setDescription(task.getDescription());
                 t.setName(task.getName());
                 t.setDueDate(task.getDueDate());
-                t.setDone(task.isDone());
+                t.setIsDone(task.getIsDone());
                 break;
             }
         }

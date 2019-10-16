@@ -41,7 +41,7 @@ public class UserPersistenceImpl implements UserPersistence {
 
     @Override
     public void createUser(User user) {
-        // TODO Auto-generated method stub
+        users.put(user.getId(), user);
 
     }
 
