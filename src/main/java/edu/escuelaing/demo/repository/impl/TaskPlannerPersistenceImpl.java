@@ -19,10 +19,10 @@ public class TaskPlannerPersistenceImpl implements TaskPlannerPersistence {
         String updtaeDate = "2018-12-18 15:30";
         String dueDate1 = "2018";
         List<TaskList> functions= new ArrayList<>();List<Task> tasks=new ArrayList<>();List<Task> tasks2=new ArrayList<>();
-        Task t=new Task("hacer ...","1",null,updtaeDate,false,dueDate1);
-        Task t1=new Task("hacer ...","2",null,updtaeDate,false,dueDate1);
-        Task t2=new Task("hacer ...","3",null,updtaeDate,false,dueDate1);
-        Task t3=new Task("hacer ...","4",null,updtaeDate,false,dueDate1);
+        Task t=new Task("hacer ...","1",null,updtaeDate,"progress",dueDate1);
+        Task t1=new Task("hacer ...","2",null,updtaeDate,"progress",dueDate1);
+        Task t2=new Task("hacer ...","3",null,updtaeDate,"progress",dueDate1);
+        Task t3=new Task("hacer ...","4",null,updtaeDate,"progress",dueDate1);
         tasks.add(t1);tasks.add(t2);tasks2.add(t1);tasks.add(t3);tasks.add(t2);
         TaskList funct1 = new TaskList("1","prueba",tasks);
         TaskList funct2 = new TaskList("2","prueba1",tasks2);

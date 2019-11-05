@@ -8,10 +8,12 @@ import edu.escuelaing.demo.service.TaskPlannerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -37,7 +40,6 @@ public class TaskController {
     TaskPlannerService taskServices;
     @Autowired
     TaskRepository taskRepository;
-
 
     @RequestMapping("/files/{filename}")
     public ResponseEntity<InputStreamResource> getFileByName(@PathVariable String filename) throws IOException {
@@ -77,7 +79,7 @@ public class TaskController {
     @GetMapping("/tasks")
     public ResponseEntity<?> getAllTasks() {
 
-        List<Task> data= taskRepository.findAll();
+        List<Task> data = taskRepository.findAll();
         // System.out.println(data.size());
         return new ResponseEntity<>(data, HttpStatus.ACCEPTED);
     }
@@ -93,14 +95,16 @@ public class TaskController {
         }
 
     }
+
     @CrossOrigin("*")
     @PostMapping("/tasks/addTask")
     public ResponseEntity<?> createTask(@RequestBody Task task) {
         try {
+            System.out.println("amiga date cuenta");
             System.out.println(task.getName());
 
             System.out.println(task.getFileUrl());
-        
+
             taskRepository.save(task);
             return new ResponseEntity<>("done", HttpStatus.ACCEPTED);
         } catch (Exception e) {
@@ -109,15 +113,14 @@ public class TaskController {
 
     }
 
-    @RequestMapping(value="/upload", method= RequestMethod.POST)
-    public String handleFileUpload(
-            @RequestParam("file") MultipartFile file){
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public String handleFileUpload(@RequestParam("file") MultipartFile file) {
         String name = file.getOriginalFilename();
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
-                BufferedOutputStream stream =
-                        new BufferedOutputStream(new FileOutputStream(new File(name + "-uploaded")));
+                BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(new File(name + "-uploaded")));
                 stream.write(bytes);
                 stream.close();
                 gridFsTemplate.store(file.getInputStream(), file.getOriginalFilename(), file.getContentType());
@@ -129,5 +132,29 @@ public class TaskController {
             return "You failed to upload " + name + " because the file was empty.";
         }
     }
+
+   /* @GetMapping("/downloadFile/{fileName:.+}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+        // Load file as Resource
+        Resource resource = fileStorageService.loadFileAsResource(fileName);
+
+        // Try to determine file's content type
+        String contentType = null;
+        try {
+            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException ex) {
+            logger.info("Could not determine file type.");
+        }
+
+        // Fallback to the default content type if type could not be determined
+        if(contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
+    }*/
 
 }

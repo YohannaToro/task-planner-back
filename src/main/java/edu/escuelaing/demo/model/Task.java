@@ -13,7 +13,7 @@ public class Task {
     private String id;
     private String description;
     private String updateDate;
-    private boolean isDone;
+    private String isDone;
     private String dueDate;
     private String fileUrl;
 
@@ -28,7 +28,7 @@ public class Task {
     public Task() {
     }
 
-    public Task(String name,String id,String description,String updateDate,boolean isDone,String dueDate) {
+    public Task(String name,String id,String description,String updateDate,String isDone,String dueDate) {
         this.name=name;
         this.id=id;
         this.description=description;
@@ -69,11 +69,11 @@ public class Task {
         this.updateDate = updateDate;
     }
 
-    public boolean getIsDone() {
+    public String getIsDone() {
         return this.isDone;
     }
 
-    public void setIsDone(boolean isDone) {
+    public void setIsDone(String isDone) {
         this.isDone = isDone;
     }
 
